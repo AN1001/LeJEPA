@@ -7,6 +7,8 @@ from lejepa.ViT import ViT
 from lejepa.config import TrainConfig
 from lejepa.utils import batch, cache_embeddings
 from lejepa.train_log import log_epoch
+from lejepa.probe import linear_probe
+from lejepa.metrics import evaluate
 import torch.optim.lr_scheduler as scds
 
 
@@ -35,6 +37,17 @@ def train_epoch(
         n_batches += 1
 
     return sim_total, sig_total, n_batches
+
+
+def probe_accuracy(embedder, ds, config: TrainConfig) -> float:
+    """
+    Fits a linear probe on the frozen encoder and scores it on the val split
+    """
+    embeddings = cache_embeddings(embedder, ds["xtr"])
+    probe = linear_probe(embeddings, ds["ytr"], config.classes, config.probe)
+
+    val_embeddings = cache_embeddings(embedder, ds["xval"])
+    return evaluate(probe, val_embeddings, ds["yval"], config.probe.batch_size)
 
 
 def build_optimiser(model, config, n_train):
@@ -77,8 +90,13 @@ def train(
 
         z = cache_embeddings(embedder, ds["xtr"][:8192])
         llr = scheduler.get_last_lr()[0]
+
+        extras = {}
+        if config.probe_every and epoch % config.probe_every == 0:
+            extras["val_acc"] = probe_accuracy(embedder, ds, config)
+
         log_epoch(
-            epoch, n_batches, sim.item(), sig.item(), z, config.save_dir, llr,
+            epoch, n_batches, sim.item(), sig.item(), z, config.save_dir, llr, extras,
         )
 
     return base

@@ -1,3 +1,18 @@
+"""
+Full LeJEPA pretraining run: train + probe encoder
+
+Logs and saves stats* every epoch at [TrainConfig.save_dir].
+Also saves final model.
+
+A full working example can be found at:
+'you're already here!'
+
+
+*Stats include:
+similarity/sigreg loss, effective rank, mean pairwise cosine
+(centered and uncentered), min/med/max of the embedding stds per dim
+and learning rate
+"""
 from pathlib import Path
 
 import torch

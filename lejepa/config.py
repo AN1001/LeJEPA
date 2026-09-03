@@ -56,9 +56,13 @@ class TrainConfig:
     weight_decay: float = 0.01
     warmup_steps: int = 1000
 
+    classes: int     = 10
+    probe_every: int = 15
+
     model: ModelConfig     = ModelConfig()
     sigreg: SigregConfig   = SigregConfig()
     augment: AugmentConfig = AugmentConfig()
+    probe: ProbeConfig     = ProbeConfig()
 
     data_path: str = str(_DATA_DIR / 'cifar10.pt')
     save_dir: str = str(_DATA_DIR)
