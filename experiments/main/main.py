@@ -35,7 +35,7 @@ ds = get_data(config.data_path, device)
 
 embeddings = cache_embeddings(encoder, ds["xtr"])
 probe = linear_probe(embeddings, ds["ytr"], classes=10)
-acc = evaluate(probe, cache_embeddings(encoder, ds["xval"]), ds["yval"], 4096)
+acc = evaluate(probe, cache_embeddings(encoder, ds["xte"]), ds["yte"], 4096)
 
 print(
     f"val accuracy: {acc:.4f}, "

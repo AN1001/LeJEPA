@@ -26,7 +26,6 @@ def _print_log(row):
         f"E {row['epoch']:<4}"
         f"| erank {row['erank']:>8.4f} "
         f"| cos {row['cos']:.4f} / {row['cos_cent']:.4f} "
-        f"| std {row['std_min']:.2f} / {row['std_med']:.2f} / {row['std_max']:.2f} "
         f"| lr {row['lr']:.2e} "
         f"| sig {row['sig_loss']:>9.4f} "
         f"| sim {row['sim_loss']:>7.4f}"
