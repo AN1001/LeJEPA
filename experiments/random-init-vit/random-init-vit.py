@@ -1,18 +1,12 @@
 """
-Full LeJEPA pretraining run: train + probe encoder
+A baseline using a randomly initialised ViT
 
-Logs and saves stats* every epoch at experiments/main/train_log.json
-and also saves final model.
+Saves final model at experiments/random-init-vit/
 
 A full working example can be found at:
-https://www.kaggle.com/code/arnavnagpure/lejepa-exp-main
-
-
-*Stats include:
-similarity/sigreg loss, effective rank, mean pairwise cosine
-(centered and uncentered), min/med/max of the embedding stds per dim
-and learning rate
+https://www.kaggle.com/code/arnavnagpure/lejepa-exp-random-init-vit
 """
+from lejepa.ViT import ViT
 from pathlib import Path
 
 import torch
@@ -22,16 +16,18 @@ from lejepa.data import get_data
 from lejepa.probe import linear_probe
 from lejepa.utils import cache_embeddings
 from lejepa.metrics import evaluate, effective_rank, mean_pairwise_cosine
-from lejepa.train import train
 
 out = Path(__file__).resolve().parent
-config = TrainConfig(save_dir=str(out))
+config = TrainConfig(save_dir=str(out), epochs=0)
 
-encoder = train(config)
+device = "cuda" if torch.cuda.is_available() else "cpu"
+ds = get_data(config.data_path, device)
+
+image_size = ds['xtr'].shape[-1]
+# Don't train
+encoder = ViT(image_size, ds['mean'], ds['std'], config.model).to(device)
 torch.save(encoder.state_dict(), out / "model.pt")
 
-device = next(encoder.parameters()).device
-ds = get_data(config.data_path, device)
 
 embeddings = cache_embeddings(encoder, ds["xtr"])
 probe = linear_probe(embeddings, ds["ytr"], classes=10)

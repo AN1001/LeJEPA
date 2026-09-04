@@ -9,10 +9,15 @@ dependencies = [
 
     "torch>=2.2;          sys_platform != 'darwin' or platform_machine != 'x86_64'",
     "torchvision>=0.17;   sys_platform != 'darwin' or platform_machine != 'x86_64'",
+
+    "datasets>=2.14",
 ]
 
-[project.scripts]
-lejepa-train = "lejepa.main:train"
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    "ruff>=0.6",
+]
 
 [build-system]
 requires = ["hatchling"]
