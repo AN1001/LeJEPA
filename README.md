@@ -1,4 +1,4 @@
-# DRAFT: Implementation of LeJEPA
+# Implementation of LeJEPA
 
 ### What this is
 A from scratch implementation of [LeJEPA](https://arxiv.org/abs/2511.08544) trained on CIFAR-10: ViT encoder, SIGReg, linear probe evaluation. Written from the paper without using reference implementations or tutorials.
@@ -23,3 +23,4 @@ The probe is a Linear(192, 10) with 20 epochs and a frozen encoder.
 | LeJEPA (20 epochs) | 41.00% | - | 7.87 | 0.299 | ? | ? |
 
 Within image token similarity: random init ViT 0.5671, supervised 0.4703.
+A full proper write up should come soon - likely 5th sept.
