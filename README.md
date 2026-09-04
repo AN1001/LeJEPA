@@ -11,7 +11,7 @@ The probe is a Linear(192, 10) with 20 epochs and a frozen encoder.
 ### Results
 
 | encoder | probe acc (test) | internal head acc (test) | erank | \|cos\| | \|cos\| centred |
-|---|---|---|---|---|---|---|
+|---|---|---|---|---|---|
 | **LeJEPA (600 epochs)** | **72.4%** | - | **42.9** | **0.1059** | **0.1061** |
 
 #### Baselines
