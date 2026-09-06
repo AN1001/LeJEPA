@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # LeJEPA Implementation
 
 This is a recreation of the joint embedding predictive architecture (JEPA) described in [LeJEPA](https://arxiv.org/abs/2511.08544); trained on 
