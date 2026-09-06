@@ -85,7 +85,7 @@ The model should also be evaluated on another dataset to properly test semantic 
 Model optimisations should also be applied to reduce train time, currently the project is working but unoptimised and only using a single GPU when kaggle allows for 2 T4s.
 
 
-### Reproducability
+### Reproducibility
 
 All experiments are avaliable and free to run on Kaggle. Each notebook imports the repository and runs each experiment as normal, using a preprocessed dataset and setting output to Kaggle working. The link to each can be found in each file's docstring or below:
 - [Main](https://www.kaggle.com/code/arnavnagpure/lejepa-exp-main)
